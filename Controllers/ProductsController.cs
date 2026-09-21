@@ -10,28 +10,36 @@ using AppNorthWind;
 using System.Net;
 using System.Net;
 using System.Web.Mvc;
+using System.Web.Helpers;
+using AppNorthWind.Services;
+using System.Web.Services.Description;
+using System.Threading.Tasks;
 
 namespace AppNorthWind.Controllers
 {
     public class ProductsController : Controller
     {
-        private NorthwindEntities db = new NorthwindEntities();
-        public ActionResult Index()
+        private readonly ProductsService productsService;
+
+
+        public ProductsController()
         {
-            using (var db = new NorthwindEntities())
-            {
-                var products = db.Products
-                        .Include(p => p.Categories)
-                       // .Where(p => p.UnitPrice > 20 && p.CategoryID == 6)
-                        .ToList();
+            productsService = new ProductsService();
+        }
+
+
+        public async Task<ActionResult> Index()
+        {
+            
+            var products = await productsService.GetProductsAsync();
 
                 return View(products);
-            }
+            
         }
         public ActionResult Create()
         {
-            ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName");
-            ViewBag.SupplierID = new SelectList(db.Suppliers, "SupplierID", "CompanyName");
+            ViewBag.CategoryID = new SelectList(productsService.GetCategories(), "CategoryID", "CategoryName");
+          //  ViewBag.SupplierID = new SelectList(db.Suppliers, "SupplierID", "CompanyName");
 
             return View();
         }
@@ -44,30 +52,26 @@ namespace AppNorthWind.Controllers
 
             if (ModelState.IsValid)
             {
-                db.Products.Add(product);
-                db.SaveChanges();
+             productsService.CreateProduct(product);
+            
 
                 return RedirectToAction("Index");
             }
-            ViewBag.SupplierID = new SelectList(
-                db.Suppliers,
-                "SupplierID",
-                "CompanyName",
-                product.SupplierID
-            );
-            ViewBag.CategoryID = new SelectList(
-                db.Categories,
-                "CategoryID",
-                "CategoryName",
-                product.CategoryID
-            );
-
+        
+              ViewBag.CategoryID = new SelectList(
+                  productsService.GetCategories(),
+                   "CategoryID",
+                   "CategoryName",
+                   product.CategoryID
+               );
             
+
+
 
             return View(product);
         }
         // GET: Products/Edit/5
-        public ActionResult Edit(int? id)
+      /*  public ActionResult Edit(int? id)
         {
             if (id == null)
             {
@@ -90,8 +94,9 @@ namespace AppNorthWind.Controllers
 
             return View(products);
         }
+      */
         // POST: Products/Edit/5
-        [HttpPost]
+      /*  [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Products products)
         {
@@ -105,5 +110,6 @@ namespace AppNorthWind.Controllers
 
             return View(products);
         }
+      */
     }
 }

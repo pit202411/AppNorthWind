@@ -267,6 +267,7 @@
     <Compile Include="Sales_Totals_by_Amount.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Services\ProductsService.cs" />
     <Compile Include="Shippers.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
