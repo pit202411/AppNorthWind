@@ -22,6 +22,9 @@ namespace AppNorthWind
     
         public int ProductID { get; set; }
         public string ProductName { get; set; }
+
+        public string CategoryName { get; set; }
+
         public Nullable<int> SupplierID { get; set; }
         public Nullable<int> CategoryID { get; set; }
         public string QuantityPerUnit { get; set; }

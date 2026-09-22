@@ -20,6 +20,7 @@ namespace AppNorthWind.Controllers
     public class ProductsController : Controller
     {
         private readonly ProductsService productsService;
+       
 
 
         public ProductsController()
@@ -30,15 +31,19 @@ namespace AppNorthWind.Controllers
 
         public async Task<ActionResult> Index()
         {
-            
+         
+   
             var products = await productsService.GetProductsAsync();
+          
 
-                return View(products);
+
+
+            return View(products);
             
         }
-        public ActionResult Create()
+        public async Task<ActionResult> Create()
         {
-            ViewBag.CategoryID = new SelectList(productsService.GetCategories(), "CategoryID", "CategoryName");
+            ViewBag.CategoryID = new SelectList(await productsService.GetCategoriesAsync(), "CategoryID", "CategoryName");
           //  ViewBag.SupplierID = new SelectList(db.Suppliers, "SupplierID", "CompanyName");
 
             return View();
@@ -47,7 +52,7 @@ namespace AppNorthWind.Controllers
         // POST: Products/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Products product)
+        public async Task<ActionResult> Create(Products product)
         {
 
             if (ModelState.IsValid)
@@ -58,8 +63,8 @@ namespace AppNorthWind.Controllers
                 return RedirectToAction("Index");
             }
         
-              ViewBag.CategoryID = new SelectList(
-                  productsService.GetCategories(),
+              ViewBag.CategoryID = new SelectList(await
+                  productsService.GetCategoriesAsync(),
                    "CategoryID",
                    "CategoryName",
                    product.CategoryID

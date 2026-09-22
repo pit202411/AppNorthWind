@@ -7,6 +7,7 @@ using System.Xml.Linq;
 using Newtonsoft.Json;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Configuration;
 
 namespace AppNorthWind.Services
 {
@@ -16,7 +17,7 @@ namespace AppNorthWind.Services
         {
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("https://localhost:7094/");
+                client.BaseAddress = new Uri(ConfigurationManager.AppSettings["ProductsApiUrl"]);
 
                 var response = await client.GetAsync("api/Products");
 
@@ -29,58 +30,23 @@ namespace AppNorthWind.Services
                 return products;
             }
 
+        }
+        public async Task<List<Categories>> GetCategoriesAsync()
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(ConfigurationManager.AppSettings["ProductsApiUrl"]);
 
+                var response = await client.GetAsync("api/Categories");
 
+                response.EnsureSuccessStatusCode();
 
-            /*
-             SELECT ProductID, ProductName, UnitPrice
-FROM Products
-WHERE Discontinued = 1;*/
-            /*
-             SELECT
-    ProductID,
-    ProductName,
-    UnitsInStock
-FROM Products
-WHERE UnitsInStock < 20
-ORDER BY UnitsInStock ASC;*/
-            /*
-             SELECT
-    ProductID,
-    ProductName,
-    UnitPrice
-FROM Products
-WHERE UnitPrice BETWEEN 10 AND 30
-ORDER BY UnitPrice;*/
-            /*
-             SELECT
-    ProductID,
-    ProductName,
-    UnitPrice
-FROM Products
-WHERE ProductName LIKE '%chocolate%';*/
-            /*
-             SELECT
-    AVG(UnitPrice) AS AveragePrice,
-    MIN(UnitPrice) AS MinimumPrice,
-    MAX(UnitPrice) AS MaximumPrice
-FROM Products;*/
-            /*
-             SELECT
-    Discontinued,
-    COUNT(*) AS ProductCount
-FROM Products
-GROUP BY Discontinued;*/
-            /**/
-            /**/
-            /**/
-            /**/
-            /**/
-            /**/
-            /**/
-            /**/
-            /**/
-            /**/
+                var json = await response.Content.ReadAsStringAsync();
+
+                var categories = JsonConvert.DeserializeObject<List<Categories>>(json);
+
+                return categories;
+            }
         }
 
         public Products GetProduct(int id)
@@ -130,15 +96,7 @@ GROUP BY Discontinued;*/
                 return true;
             } 
         }
-        public List<Categories> GetCategories()
-        {
-            using (var db = new NorthwindEntities())
-            {
-                return db.Categories
-                    .OrderBy(c => c.CategoryName)
-                    .ToList();
-            }
-        }
+      
 
 
     }
