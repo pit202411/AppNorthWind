@@ -30,3 +30,53 @@
 .buttonAddText {
     color: #ffffff;
 }
+.action-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    min-width: 55px;
+}
+
+.action-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 42px;
+    height: 34px;
+    padding: 0;
+
+    background: #7956f3;
+    color: #ffffff !important;
+
+    border-radius: 999px;
+    text-decoration: none !important;
+
+    transition:
+        background-color 0.2s ease,
+        transform 0.15s ease,
+        box-shadow 0.2s ease;
+}
+
+.action-button i {
+    font-size: 16px;
+}
+
+/* EDIT */
+.edit-button:hover {
+    background: #a3b8ea;
+    color: #ffffff !important;
+}
+
+/* DETAILS */
+.details-button:hover {
+    background: #16a34a;
+    color: #ffffff !important;
+}
+
+/* DELETE */
+.delete-button:hover {
+    background: #dc2626;
+    color: #ffffff !important;
+}
+

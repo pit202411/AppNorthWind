@@ -26,6 +26,7 @@ namespace AppNorthWind
             bundles.Add(new StyleBundle("~/Content/css").Include(
             "~/Content/bootstrap.css",
             "~/Content/MyStyles/forms.css",
+            "~/Content/MyStyles/pagination.css",
             "~/Content/MyStyles/buttons.css",
             "~/Content/MyStyles/tables.css",
             "~/Content/site.css"));

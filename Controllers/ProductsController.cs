@@ -14,6 +14,8 @@ using System.Web.Helpers;
 using AppNorthWind.Services;
 using System.Web.Services.Description;
 using System.Threading.Tasks;
+using System.Web.UI;
+using AppNorthWind.Models;
 
 namespace AppNorthWind.Controllers
 {
@@ -29,11 +31,29 @@ namespace AppNorthWind.Controllers
         }
 
 
-        public async Task<ActionResult> Index(string sortOrder)
+        public async Task<ActionResult> Index(string sortOrder,int page = 1)
         {
             var products = await productsService.GetProductsAsync(sortOrder);
 
-            return View(products);
+            const int pageSize = 15;
+
+            var model = new PagedViewModel<Products>
+            {
+                Items = products
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .ToList(),
+
+                ItemMetadata = new Products(),
+
+                CurrentPage = page,
+                PageSize = pageSize,
+                TotalItems = products.Count,
+                SortOrder = sortOrder
+            };
+
+            return View(model);
+           
         }
         public async Task<ActionResult> Create()
         {
