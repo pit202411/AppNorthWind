@@ -1,0 +1,32 @@
+﻿.buttonAdd {
+    display: inline-block;
+    margin-bottom: 25px;
+    background: #7956f3;
+    color: #ffffff;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;
+    cursor: pointer;
+    box-shadow: 0 3px 8px rgba(68, 60, 112, 0.2);
+    transition: background-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+    .buttonAdd:hover {
+        background: #6242c5;
+        color: #ffffff;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 12px rgba(68, 60, 112, 0.25);
+    }
+
+    .buttonAdd:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 5px rgba(68, 60, 112, 0.2);
+    }
+
+.buttonAddText {
+    color: #ffffff;
+}

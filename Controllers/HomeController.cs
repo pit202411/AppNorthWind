@@ -20,7 +20,7 @@ namespace AppNorthWind.Controllers
             return View();
         }
 
-        public ActionResult Contact()
+        public ActionResult Categories()
         {
             ViewBag.Message = "Your contact page.";
 

@@ -29,17 +29,11 @@ namespace AppNorthWind.Controllers
         }
 
 
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(string sortOrder)
         {
-         
-   
-            var products = await productsService.GetProductsAsync();
-          
-
-
+            var products = await productsService.GetProductsAsync(sortOrder);
 
             return View(products);
-            
         }
         public async Task<ActionResult> Create()
         {

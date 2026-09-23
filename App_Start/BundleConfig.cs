@@ -1,5 +1,6 @@
 ﻿using System.Web;
 using System.Web.Optimization;
+using System.Web.UI.WebControls;
 
 namespace AppNorthWind
 {
@@ -23,9 +24,11 @@ namespace AppNorthWind
                       "~/Scripts/bootstrap.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                         "~/Content/forms.css",
-                      "~/Content/site.css"));
+            "~/Content/bootstrap.css",
+            "~/Content/MyStyles/forms.css",
+            "~/Content/MyStyles/buttons.css",
+            "~/Content/MyStyles/tables.css",
+            "~/Content/site.css"));
         }
     }
 }

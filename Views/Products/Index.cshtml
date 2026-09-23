@@ -2,26 +2,41 @@
 
 @{
     ViewBag.Title = "Index";
+    string currentSort = Request.QueryString["sortOrder"];
 }
 
-<h2>Index</h2>
+<h2>Products</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<button class="buttonAdd">
+    @Html.ActionLink("Create New", "Create", null, new { @class = "buttonAddText" })
+</button>
 <table class="table">
     <tr>
+
         <th>
-            @Html.DisplayNameFor(model => model.ProductID)
+            @if (currentSort == "ProductNameAsc")
+            {
+                @Html.ActionLink(
+                    "Product Name (A-Z)",
+                    "Index",
+                    new { sortOrder = "ProductNameDesc" }
+                )
+            }
+            else
+            {
+                @Html.ActionLink(
+                    "Product Name (Z-A)",
+                    "Index",
+                    new { sortOrder = "ProductNameAsc" }
+                )
+            }
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ProductName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SupplierID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CategoryID)
+            @Html.ActionLink(
+                "Supplier Name",
+                "Index",
+                new { sortOrder = "SupplierName" }
+            )
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Categories.CategoryName)
@@ -49,17 +64,12 @@
 
 @foreach (var item in Model) {
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProductID)
-        </td>
+
         <td>
             @Html.DisplayFor(modelItem => item.ProductName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.SupplierID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CategoryID)
+            @Html.DisplayFor(modelItem => item.SupplierName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.CategoryName)

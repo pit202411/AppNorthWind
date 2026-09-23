@@ -13,7 +13,7 @@ namespace AppNorthWind.Services
 {
     public class ProductsService
     {
-        public async Task<List<Products>> GetProductsAsync()
+        public async Task<List<Products>> GetProductsAsync(string sortOrder)
         {
             using (var client = new HttpClient())
             {
@@ -27,9 +27,50 @@ namespace AppNorthWind.Services
 
                 var products = JsonConvert.DeserializeObject<List<Products>>(json);
 
+                switch (sortOrder)
+                {
+                    case "ProductNameAsc":
+                        products = products.OrderBy(p => p.ProductName).ToList();
+                        break;
+                    case "ProductNameDesc":
+                        products = products.OrderByDescending(p => p.ProductName).ToList();
+                        break;
+
+                    case "SupplierName":
+                        products = products.OrderBy(p => p.SupplierName).ToList();
+                        break;
+
+
+                    default:
+                        products = products.OrderBy(p => p.ProductName).ToList();
+                        break;
+                }
+
                 return products;
             }
 
+        }
+        public async Task<List<Categories>> GetCategoriesAsync(string sortOrder)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(ConfigurationManager.AppSettings["ProductsApiUrl"]);
+
+                var response = await client.GetAsync("api/Categories");
+
+                response.EnsureSuccessStatusCode();
+
+                var json = await response.Content.ReadAsStringAsync();
+
+                var categories = JsonConvert.DeserializeObject<List<Categories>>(json);
+
+               // switch (sortOrder)
+              //  {
+              //      
+              //  }
+
+                return categories;
+            }
         }
         public async Task<List<Categories>> GetCategoriesAsync()
         {
@@ -44,6 +85,8 @@ namespace AppNorthWind.Services
                 var json = await response.Content.ReadAsStringAsync();
 
                 var categories = JsonConvert.DeserializeObject<List<Categories>>(json);
+
+             
 
                 return categories;
             }
