@@ -1,0 +1,74 @@
+﻿@model AppNorthWind.Models.PagedViewModel<AppNorthWind.Selling_Orders>
+
+@{
+    ViewBag.Title = "Selling_Orders";
+
+    string currentSort = Model.SortOrder;
+}
+
+<h2>Selling_Orders</h2>
+
+<button class="buttonAdd">
+    @Html.ActionLink("Create New", "Create", null, new { @class = "buttonAddText" })
+</button>
+
+<table class="table">
+    <tr>
+
+      
+      
+        <th>
+            @Html.DisplayNameFor(model => model.ItemMetadata.IdEmployee)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ItemMetadata.IdProduct)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ItemMetadata.Quantity)
+        </th>
+        
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.Items)
+    {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.IdEmployeeNavigation.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdProductsNavigation.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+
+           
+            <td class="action-buttons">
+
+                <a href="@Url.Action("Edit", new { id = item.IdSellingOrder })"
+                   class="action-button edit-button"
+                   title="Edit">
+                    <i class="bi bi-pencil"></i>
+                </a>
+
+                <a href="@Url.Action("Details", new { id = item.IdSellingOrder })"
+                   class="action-button details-button"
+                   title="Details">
+                    <i class="bi bi-eye"></i>
+                </a>
+
+                <a href="@Url.Action("Delete", new { id = item.IdSellingOrder })"
+                   class="action-button delete-button"
+                   title="Delete">
+                    <i class="bi bi-trash"></i>
+                </a>
+
+            </td>
+        </tr>
+    }
+
+</table>
+
+

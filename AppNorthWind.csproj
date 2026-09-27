@@ -153,8 +153,10 @@
     <Compile Include="checkCustomerOrderQuantity_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\EmployeesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Controllers\SellingOrdersController.cs" />
     <Compile Include="Current_Product_List.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -269,7 +271,11 @@
     <Compile Include="Sales_Totals_by_Amount.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Selling_Orders.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Services\ProductsService.cs" />
+    <Compile Include="Services\SellingOrdersService.cs" />
     <Compile Include="Shippers.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -386,6 +392,13 @@
     <Content Include="Views\Categories\Edit.cshtml" />
     <Content Include="Views\Categories\Index.cshtml" />
     <Content Include="Views\Shared\_Pagination.cshtml" />
+    <Content Include="Views\SellingOrders\Index.cshtml" />
+    <Content Include="Views\SellingOrders\Create.cshtml" />
+    <Content Include="Views\Employees\Create.cshtml" />
+    <Content Include="Views\Employees\Delete.cshtml" />
+    <Content Include="Views\Employees\Details.cshtml" />
+    <Content Include="Views\Employees\Edit.cshtml" />
+    <Content Include="Views\Employees\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

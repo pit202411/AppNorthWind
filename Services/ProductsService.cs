@@ -36,15 +36,34 @@ namespace AppNorthWind.Services
                         products = products.OrderByDescending(p => p.ProductName).ToList();
                         break;
 
-                    case "SupplierName":
-                        products = products.OrderBy(p => p.SupplierName).ToList();
-                        break;
+                  
 
 
                     default:
                         products = products.OrderBy(p => p.ProductName).ToList();
                         break;
                 }
+
+                return products;
+            }
+
+        }
+
+        public async Task<List<Products>> GetProductsAsync()
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(ConfigurationManager.AppSettings["ProductsApiUrl"]);
+
+                var response = await client.GetAsync("api/Products");
+
+                response.EnsureSuccessStatusCode();
+
+                var json = await response.Content.ReadAsStringAsync();
+
+                var products = JsonConvert.DeserializeObject<List<Products>>(json);
+
+             
 
                 return products;
             }

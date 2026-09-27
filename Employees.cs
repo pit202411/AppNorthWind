@@ -20,6 +20,7 @@ namespace AppNorthWind
             this.Employees1 = new HashSet<Employees>();
             this.Orders = new HashSet<Orders>();
             this.Territories = new HashSet<Territories>();
+            this.Selling_Orders = new HashSet<Selling_Orders>();
         }
     
         public int EmployeeID { get; set; }
@@ -48,5 +49,7 @@ namespace AppNorthWind
         public virtual ICollection<Orders> Orders { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Territories> Territories { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Selling_Orders> Selling_Orders { get; set; }
     }
 }

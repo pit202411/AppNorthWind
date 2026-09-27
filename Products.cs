@@ -18,17 +18,17 @@ namespace AppNorthWind
         public Products()
         {
             this.Order_Details = new HashSet<Order_Details>();
+            this.Selling_Orders = new HashSet<Selling_Orders>();
         }
     
         public int ProductID { get; set; }
         public string ProductName { get; set; }
-
-        public string CategoryName { get; set; }
+        public Nullable<int> SupplierID { get; set; }
 
         public string SupplierName { get; set; }
-
-        public Nullable<int> SupplierID { get; set; }
         public Nullable<int> CategoryID { get; set; }
+
+        public string CategoryName { get; set; }
         public string QuantityPerUnit { get; set; }
         public Nullable<decimal> UnitPrice { get; set; }
         public Nullable<short> UnitsInStock { get; set; }
@@ -40,5 +40,7 @@ namespace AppNorthWind
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order_Details> Order_Details { get; set; }
         public virtual Suppliers Suppliers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Selling_Orders> Selling_Orders { get; set; }
     }
 }

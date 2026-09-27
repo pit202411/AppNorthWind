@@ -46,6 +46,9 @@
         <AssociationConnector Association="NorthwindModel.FK_Territories_Region" ManuallyRouted="false" />
         <AssociationConnector Association="NorthwindModel.CustomerCustomerDemo" ManuallyRouted="false" />
         <AssociationConnector Association="NorthwindModel.EmployeeTerritories" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="NorthwindModel.Selling_Orders" Width="1.5" PointX="7.5" PointY="15.875" />
+        <AssociationConnector Association="NorthwindModel.FK_Orders_Employee" />
+        <AssociationConnector Association="NorthwindModel.FK_Orders_Products" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

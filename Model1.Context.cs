@@ -57,6 +57,7 @@ namespace AppNorthWind
         public virtual DbSet<Sales_Totals_by_Amount> Sales_Totals_by_Amount { get; set; }
         public virtual DbSet<Summary_of_Sales_by_Quarter> Summary_of_Sales_by_Quarter { get; set; }
         public virtual DbSet<Summary_of_Sales_by_Year> Summary_of_Sales_by_Year { get; set; }
+        public virtual DbSet<Selling_Orders> Selling_Orders { get; set; }
     
         public virtual ObjectResult<AllCategories_Result> AllCategories()
         {
