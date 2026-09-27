@@ -213,6 +213,7 @@
     </Compile>
     <Compile Include="Models\PagedViewModel.cs" />
     <Compile Include="Models\PaginationViewModel.cs" />
+    <Compile Include="Models\SellingOrderUpdateDto.cs" />
     <Compile Include="Orders.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -274,6 +275,7 @@
     <Compile Include="Selling_Orders.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Services\Abstract\ApiServiceAbstract.cs" />
     <Compile Include="Services\ProductsService.cs" />
     <Compile Include="Services\SellingOrdersService.cs" />
     <Compile Include="Shippers.cs">
@@ -399,6 +401,7 @@
     <Content Include="Views\Employees\Details.cshtml" />
     <Content Include="Views\Employees\Edit.cshtml" />
     <Content Include="Views\Employees\Index.cshtml" />
+    <Content Include="Views\SellingOrders\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

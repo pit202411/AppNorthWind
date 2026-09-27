@@ -9,72 +9,42 @@ using Newtonsoft.Json;
 
 namespace AppNorthWind.Services
 {
-    public class SellingOrdersService
+    public class SellingOrdersService : ApiServiceAbstract
     {
-
-        public async Task<List<Selling_Orders>> GetSellingOrdersAsync(string sortOrder)
+        public Task<List<Selling_Orders>> GetSellingOrdersAsync()
         {
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri(ConfigurationManager.AppSettings["ProductsApiUrl"]);
-
-                var response = await client.GetAsync("api/SellingOrders");
-
-                response.EnsureSuccessStatusCode();
-
-                var json = await response.Content.ReadAsStringAsync();
-
-                var sellingOrders = JsonConvert.DeserializeObject<List<Selling_Orders>>(json);
-
-
-                return sellingOrders;
-            }
+            return GetAsync<Selling_Orders>("api/SellingOrders");
         }
-        public async Task<List<Employees>> GetEmployeesAsync()
+
+        public Task<Selling_Orders> GetSellingOrderAsync(int id)
         {
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri(ConfigurationManager.AppSettings["ProductsApiUrl"]);
-
-                var response = await client.GetAsync("api/Employees");
-
-                response.EnsureSuccessStatusCode();
-
-                var json = await response.Content.ReadAsStringAsync();
-
-                var employees = JsonConvert.DeserializeObject<List<Employees>>(json);
-
-
-
-                return employees;
-            }
+            return GetAsync<Selling_Orders>("api/SellingOrders", id);
         }
-        public async Task<List<Products>> GetProductsAsync()
+
+        public Task<List<Employees>> GetEmployeesAsync()
         {
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri(ConfigurationManager.AppSettings["ProductsApiUrl"]);
-
-                var response = await client.GetAsync("api/Products");
-
-                response.EnsureSuccessStatusCode();
-
-                var json = await response.Content.ReadAsStringAsync();
-
-                var products = JsonConvert.DeserializeObject<List<Products>>(json);
-
-
-
-                return products;
-            }
+            return GetAsync<Employees>("api/Employees");
         }
-        public void CreateSellingOrder(Selling_Orders selling_Orders)
+
+        public Task<List<Products>> GetProductsAsync()
         {
-            using (var db = new NorthwindEntities())
-            {
-                db.Selling_Orders.Add(selling_Orders);
-                db.SaveChanges();
-            }
+            return GetAsync<Products>("api/Products");
         }
+
+        public Task CreateSellingOrder(Selling_Orders order)
+        {
+            return PostAsync("api/SellingOrders", order);
+        }
+
+        public Task EditSellingOrder(
+            Selling_Orders order,
+            int id)
+        {
+            return PutAsync(
+                "api/SellingOrders",
+                id,
+                order);
+        }
+
     }
 }

@@ -64,7 +64,7 @@ namespace AppNorthWind.Controllers
         public async Task<ActionResult> Index(string sortOrder, int page = 1)
         {
 
-            var products = await sellingOrdersService.GetSellingOrdersAsync(sortOrder);
+            var products = await sellingOrdersService.GetSellingOrdersAsync();
 
             const int pageSize = 15;
 
@@ -87,26 +87,91 @@ namespace AppNorthWind.Controllers
       
 
         // GET: SellingOrders/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
-            return View();
+            var sellingOrders = await sellingOrdersService.GetSellingOrderAsync(id);
+            if (sellingOrders == null)
+                return HttpNotFound();
+
+            var employees = await sellingOrdersService.GetEmployeesAsync();
+            var products = await productsService.GetProductsAsync();
+
+            ViewBag.IdEmployee = new SelectList(
+               employees, "EmployeeID", "LastName");
+            ViewBag.IdProduct = new SelectList(
+               products, "ProductID", "ProductName",sellingOrders.IdProduct);
+           
+            return View(sellingOrders);
         }
 
         // POST: SellingOrders/Edit/5
+
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Edit(int id, Selling_Orders sellingOrders)
         {
+            if (id != sellingOrders.IdSellingOrder)
+                return HttpNotFound();
+
+            if (!ModelState.IsValid)
+            {
+                var employees = await sellingOrdersService.GetEmployeesAsync();
+                var products = await productsService.GetProductsAsync();
+
+                ViewBag.IdEmployee = new SelectList(
+                    employees,
+                    "EmployeeID",
+                    "LastName",
+                    sellingOrders.IdEmployee
+                );
+
+                ViewBag.IdProduct = new SelectList(
+                    products,
+                    "ProductID",
+                    "ProductName",
+                    sellingOrders.IdProduct
+                );
+
+                return View(sellingOrders);
+            }
+
             try
             {
-                // TODO: Add update logic here
+                await sellingOrdersService.EditSellingOrder(
+                    
+                    sellingOrders,id
+                );
 
                 return RedirectToAction("Index");
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                ModelState.AddModelError(
+                    "",
+        "Błąd: " + ex.ToString()
+                );
+
+                var employees = await sellingOrdersService.GetEmployeesAsync();
+                var products = await productsService.GetProductsAsync();
+
+                ViewBag.IdEmployee = new SelectList(
+                    employees,
+                    "EmployeeID",
+                    "LastName",
+                    sellingOrders.IdEmployee
+                );
+
+                ViewBag.IdProduct = new SelectList(
+                    products,
+                    "ProductID",
+                    "ProductName",
+                    sellingOrders.IdProduct
+                );
+
+                return View(sellingOrders);
             }
         }
+
 
         // GET: SellingOrders/Delete/5
         public ActionResult Delete(int id)
@@ -130,5 +195,7 @@ namespace AppNorthWind.Controllers
             }
         }
       
+            
+
     }
 }
